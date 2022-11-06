@@ -1,6 +1,6 @@
 CC ?= clang
 V_COMPILER = $(shell which v)
-V_FLAGS = -skip-unused -gc none
+V_FLAGS = -skip-unused -gc none -autofree
 CFILE_OUT = out.c
 CFLAGS = -O2
 

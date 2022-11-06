@@ -25,10 +25,10 @@ module main
 *******************************************************************************/
 
 // Header definitions
-fn C.vt_alloc(int) voidptr
+fn C.vt_alloc(u64) voidptr
 fn C.vt_free(voidptr)
-fn C.vt_realloc(voidptr, int) voidptr
-fn C.vt_calloc(int, int) voidptr
+fn C.vt_realloc(voidptr, u64) voidptr
+fn C.vt_calloc(u64, u64) voidptr
 
 // Stats
 fn C.increment_stat_type(int)
@@ -64,7 +64,7 @@ fn C.putchar(byte)
 
 [export: 'custom_malloc']
 [markused]
-fn custom_malloc(size int, line int) voidptr {
+fn custom_malloc(size u64, line u64) voidptr {
 	$if debug {
 		C.puts(c'> malloc {')
 		C.puts(c' size: ')
@@ -80,7 +80,7 @@ fn custom_malloc(size int, line int) voidptr {
 
 [export: 'custom_free']
 [markused]
-fn custom_free(ptr voidptr, line int) {
+fn custom_free(ptr voidptr, line u64) {
 	$if debug {
 		C.puts(c'< freeing {')
 		C.puts(c' ptr: ')
@@ -95,7 +95,7 @@ fn custom_free(ptr voidptr, line int) {
 
 [export: 'custom_realloc']
 [markused]
-fn custom_realloc(ptr voidptr, size int, line int) voidptr {
+fn custom_realloc(ptr voidptr, size u64, line u64) voidptr {
 	$if debug {
 		C.puts(c'> realloc {')
 		C.puts(c' ptr: ')
@@ -112,7 +112,7 @@ fn custom_realloc(ptr voidptr, size int, line int) voidptr {
 
 [export: 'custom_calloc']
 [markused]
-fn custom_calloc(n int, size int, line int) voidptr {
+fn custom_calloc(n u64, size u64, line int) voidptr {
 	$if debug {
 		C.puts(c'> calloc {')
 		C.puts(c' n: ')
@@ -124,7 +124,7 @@ fn custom_calloc(n int, size int, line int) voidptr {
 		C.puts(c'};')
 	}
 
-	buffer := C.vt_calloc(n * size, line)
+	buffer := C.vt_calloc(n, size)
 
 	if buffer == 0 {
 		$if debug {
