@@ -1,0 +1,11 @@
+# Binaries for programs and plugins
+main
+valloctracker
+*.exe
+*.exe~
+*.so
+*.dylib
+*.dll
+vls.log
+*.c
+valloctrackerdemo
